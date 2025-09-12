@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,34 +8,38 @@
     </head>
     <body>
 
-        <div>
-            <div>
-                <form action="">
-                    <h1>To-do list</h1>
-                    <div>
-                        <input type="text" name="" id="" placeholder="Item novo">
-                        <button type="submit">Adicionar</button>
-                    </div>
-                </form>
-            </div>
-            <div>
-                <div>
-                    <ul>
-                        <button type="button">
-                            <i class="fa-solid fa-check"></i>
-                        </button>
+        <main>
+            <div class="main-container">
+                <div class="form-container">
+                    <form action="">
+                        <h1>To-do list</h1>
+                        <div class="input-container">
+                            <input type="text" placeholder="New item">
+                            <button type="submit">Add</button>
+                        </div>
+                    </form>
+                </div>
 
-                        <p>Exemplo</p>
-                        
-                        <div>
-                            <button type="button"><i class="fa-solid fa-pen-to-square"></i></button>
+              
+                <div class="list-container">
+                    <ul class="list">
+                        <button type="button">
+                             <i class="fa-solid fa-check"></i>
+                         </button>
+
+                         <p>Example: Item1</p>
                             
+                         <div class="buttons-container">
+                            <button type="button"><i class="fa-solid fa-pen-to-square"></i></button>
+                                
                             <button type="button"><i class="fa-solid fa-trash"></i></button>
                         </div>
+
                     </ul>
-                </div>
-            </div>            
-        </div>
+                </div>            
+            </div>
+        </main>
+        
 
     <script src="./scripts/all.min.js" crossorigin="anonymous"></script>
     <script type="module" src="./scripts/index.js"></script>
