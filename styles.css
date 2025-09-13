@@ -1,0 +1,235 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+:root {
+    --primary-color: #a8d5e2;
+    --secondary-color: #e1f0f6;
+    --accent-color: #ffd449;
+    --danger-color: #e96565;
+    --width-main-container: 90%;
+    --shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url(./assets/fonts/Poppins-Regular.woff2) format('woff2'),
+         url(./assets/fonts/Poppins-Regular.woff) format('woff');
+    font-style: normal;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    background-color: #fff;
+    display: flex;
+}
+
+main {
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    padding-inline: 2rem;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+i, button {
+    color: var(--primary-color);
+}
+
+.main-container {
+    width: var(--width-main-container);
+    height: 45vh;
+    margin-block-start: 6rem;
+    margin-inline: auto;
+    display: grid;
+    grid-template-areas: 
+        'form'
+        'list';
+    grid-template-rows: 120px 1fr;
+    grid-template-columns: repeat(1, 1fr);
+    justify-content: center;
+    justify-items: center;   
+    color: #000;
+}
+
+.form-container {
+    grid-area: form;
+    background-color: var(--primary-color);
+    padding-inline: clamp(1.5rem, 1vw + 1.5rem, 2.5rem);
+    padding-block: clamp(1.2rem, 1vw + 0.5rem, 1.5rem);
+    display: flex;
+    flex-direction: column;
+    width: 100%;  
+}
+
+.form-container form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: clamp(0.5rem, 0.5vw + 0.2rem, 1rem);
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.input-container input {
+    padding-inline: clamp(1rem, 1vw + 0.5rem, 1.5rem);
+    padding-block: clamp(0.4rem, 0.4vw + 0.5rem, 0.8rem);
+    border-radius: 0.2rem;
+    border: none;
+    width: 100%;
+}
+
+.list-container {
+    grid-area: list;
+    width: 100%;
+    padding-inline: clamp(1.5rem, 1vw + 1.5rem, 2.5rem);
+    padding-block: clamp(1.2rem, 1vw + 0.5rem, 1.5rem);
+    box-shadow: var(--shadow);
+    background-color: var(--secondary-color);
+}
+
+.add-btn {
+    background-color: var(--accent-color);
+    color: #000;
+    padding-inline: clamp(2.5rem, 2vw + 0.5rem, 2.5rem);
+    padding-block: clamp(0.4rem, 0.4vw + 0.5rem, 0.8rem);
+    border-radius: 0.2rem;
+}
+
+ul {
+    list-style: none;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.4rem, 1.4vw + 0.2rem, 1.8rem);
+    padding-block: clamp(0.2rem, 0.2vw + 0.5rem, 0.6rem);
+    position: relative;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: clamp(1rem, 1vw + 0.5rem, 1.5rem);
+    padding-block: clamp(1rem, 1vw + 0.5rem, 1.6rem);
+    background-color: #f5f5f5;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+}
+
+.container-check-btn, .buttons-container {
+    display: flex;
+    align-items: center;
+    gap: clamp(1.4rem, 1.2vw + 0.2rem, 1.4rem);
+}
+
+.buttons-container buttons {
+    font-size: 10rem;
+}
+
+.fa-check {
+    visibility: hidden;
+}
+
+.show-check {
+    visibility: visible;
+}
+
+.check-btn  {
+    outline: 2px solid var(--primary-color);
+}
+
+h1 {
+    align-self: flex-start;
+}
+
+.edit-container {
+    position: absolute;
+    top: 20%;
+    background-color: #b8bedd;
+    padding-inline: clamp(1rem, 1vw + 0.5rem, 1.5rem);
+    padding-block: clamp(1rem, 1vw + 0.5rem, 1.6rem);
+    border-radius: 0.2rem;
+    display: flex;
+    justify-content: space-around;
+    gap: clamp(1.2rem, 1.2vw + 0.2rem, 1.4rem);
+    box-shadow: var(--shadow);
+}
+
+.edit-container input {
+    width: 60%;
+    border: 2px solid var(--secondary-color);
+    background-color: transparent;
+    padding-inline: clamp(1rem, 1vw + 0.5rem, 1.5rem);
+}
+
+.edit-container button {
+    color: #000;
+    padding-inline: clamp(1.2rem, 0.8vw + 0.8rem, 1.8rem);
+    padding-block: clamp(0.6rem, 0.4vw + 0.2rem, 0.8rem);
+    border-radius: 0.2rem;
+    flex-grow: 1;
+}
+
+
+.edit-btn {
+    background-color: var(--secondary-color);
+}
+
+.cancel-btn {
+    background-color: var(--danger-color);
+}
+
+/* Typography */
+
+h1 {
+    font-size: clamp(2.5rem, 2.5vw + 1rem, 3.5rem);
+}
+
+.add-btn, ul p {
+    font-size: clamp(1.3rem, 0.8vw + 0.2rem, 1.8rem);
+}
+
+.fa-pen-to-square, .fa-trash {
+    font-size: clamp(1.6rem, 1vw + 0.5rem, 1.8rem);
+}
+
+/* Responsive Design */
+
+@media screen and (min-width: 768px) {
+
+    :root {
+        --width-main-container: 80%;
+    }
+
+    .edit-container {
+        width: 95%;
+    }
+
+    
+}
+
+/* @media screen and (min-width: 1024px) {
+
+    .main-container {
+        width: 90%;
+    }
+} */

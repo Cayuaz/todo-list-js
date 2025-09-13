@@ -10,12 +10,13 @@
 
         <main>
             <div class="main-container">
+
                 <div class="form-container">
                     <form action="">
                         <h1>To-do list</h1>
                         <div class="input-container">
                             <input type="text" placeholder="New item">
-                            <button type="submit">Add</button>
+                            <button class="add-btn" type="submit">Add</button>
                         </div>
                     </form>
                 </div>
@@ -23,24 +24,56 @@
               
                 <div class="list-container">
                     <ul class="list">
-                        <button type="button">
-                             <i class="fa-solid fa-check"></i>
-                         </button>
+                        <li>
+                            <div class="container-check-btn">
+                                <button type="button" class="check-btn">
+                                <i class="fa-solid fa-check fa-sm"></i>
+                                </button>
 
-                         <p>Example: Item1</p>
+                                <p>Example: Item1</p>
+                            </div>
                             
-                         <div class="buttons-container">
-                            <button type="button"><i class="fa-solid fa-pen-to-square"></i></button>
+                            <div class="buttons-container">
+                                <button type="button"><i class="fa-solid fa-pen-to-square"></i></button>
                                 
-                            <button type="button"><i class="fa-solid fa-trash"></i></button>
-                        </div>
+                                <button type="button"><i class="fa-solid fa-trash"></i></button>
+                            </div>
 
+                            
+                        </li>
+
+                        <li>
+                            <div class="container-check-btn">
+                                <button type="button" class="check-btn">
+                                <i class="fa-solid fa-check fa-sm"></i>
+                                </button>
+
+                                <p>Example: Item1</p>
+                            </div>
+                            
+                            <div class="buttons-container">
+                                <button type="button"><i class="fa-solid fa-pen-to-square"></i></button>
+                                
+                                <button type="button"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+
+                            <div class="edit-container">
+                                <input type="text" class="edit-input">
+                                <button type="button" class="edit-btn">Edit</button>
+                                <button type="button" class="cancel-btn">Cancel</button>
+                            </div>
+                        </li>
+                        
                     </ul>
-                </div>            
+                    
+                </div>   
+
+                
             </div>
+
+            
         </main>
         
-
     <script src="./scripts/all.min.js" crossorigin="anonymous"></script>
     <script type="module" src="./scripts/index.js"></script>
     </body>
