@@ -3,8 +3,17 @@ const addInput = document.getElementById("add-input")
 const list = document.getElementById("list")
 const addBtn = document.getElementById("add-btn")
 
+//Propagação de evento
+list.addEventListener("click", (e) =>{
+    if(e.target.nodeName === "LI"){
+        console.log(e.target)
+    }
+})
+
+//Função de focus no input
 const inputFocus = () => addInput.focus()
 
+//Função que exibe a mensagem de erro
 function displayErrorMsg(error) {
 
     const errorContainer = document.querySelector(".error-container")
@@ -35,7 +44,17 @@ function displayErrorMsg(error) {
          
 }
 
-function createNewItem(inputText){
+//Array com os objetos que representam cada tarefa
+const arrTasks = [
+    {
+        itemName: "Ir à academia",
+        createDate: Date.now(),
+        completed: false
+    }
+]
+
+//Função que retorna uma nova li com uma nova tarefa 
+function createNewItemObj(obj){
 
     //Variável com a li que vai conter o novo item da lista
     const listItem = document.createElement("li")
@@ -65,7 +84,7 @@ function createNewItem(inputText){
     //Parágrafo com o nome do item
     const itemName = document.createElement("p")
 
-    itemName.textContent = inputText
+    itemName.textContent = obj.itemName
 
     //Adiciona o parágrafo ao check container
     checkContainer.appendChild(itemName)
@@ -104,10 +123,32 @@ function createNewItem(inputText){
     listItem.appendChild(buttonsContainer)
 
     //Adiciona a nova li à lista
-    list.appendChild(listItem)
+    // list.appendChild(listItem)
+
+    return listItem
 
 }
 
+//Função que adiciona a li retornada pela função createNewItemObj, à lista de tarefas
+function displayNewItem(create) {
+
+    //Limpa antes para não exibir tarefas repetidas, já que percorre todos os objetos do array de tarefas
+    list.innerHTML = "";
+    arrTasks.forEach((task) => {
+        list.appendChild(create(task))
+    })
+}
+
+//Adiciona uma nova tarefa/objeto ao array de tarefas
+function addTask(taskName) {
+    arrTasks.push({
+        itemName: taskName,
+        createDate: Date.now(),
+        completed: false
+    })
+}
+
+//Função que faz a verifica se o input não está vazio
 const checkInput = input => {
     if(input.value){
         return true
@@ -116,11 +157,13 @@ const checkInput = input => {
     }
 }
 
-function process(check, create, displayError) {
+//Função com a lógica principal, que executa todas as outras funções
+function process(check, add, displayItem, create, displayError) {
 
     try {
         check(addInput);
-        create(addInput.value);
+        add(addInput.value)
+        displayItem(create)
         addInput.value = "";
         inputFocus()
     } catch (error) {
@@ -128,11 +171,13 @@ function process(check, create, displayError) {
     }
 }
 
+//Evento de submit, que chama a função process e passa as outras funções como argumento
 form.addEventListener("submit", (e) => {
     e.preventDefault()
-    process(checkInput, createNewItem, displayErrorMsg)
+    process(checkInput, addTask, displayNewItem, createNewItemObj, displayErrorMsg)
 
 })
 
+displayNewItem(createNewItemObj)
 
                         
