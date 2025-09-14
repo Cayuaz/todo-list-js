@@ -145,17 +145,27 @@ li {
     font-size: 10rem;
 }
 
+/* Visibility classes */
+
 .fa-check {
     visibility: hidden;
 }
 
-.show-check {
+.visible {
     visibility: visible;
 }
+
+.visible-display {
+    display: block;
+}
+
+/* ------ */
 
 .check-btn  {
     outline: 2px solid var(--primary-color);
 }
+
+
 
 h1 {
     align-self: flex-start;
@@ -223,13 +233,5 @@ h1 {
     .edit-container {
         width: 95%;
     }
-
-    
+   
 }
-
-/* @media screen and (min-width: 1024px) {
-
-    .main-container {
-        width: 90%;
-    }
-} */
