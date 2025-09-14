@@ -3,21 +3,37 @@ const addInput = document.getElementById("add-input")
 const list = document.getElementById("list")
 const addBtn = document.getElementById("add-btn")
 
+const inputFocus = () => addInput.focus()
 
-{/* <li>
-                            <div class="container-check-btn">
-                                <button type="button" class="check-btn">
-                                <i class="fa-solid fa-check fa-sm"></i>
-                                </button>
+function displayErrorMsg(error) {
 
-                                <p>Example: Item1</p>
-                            </div>
-                            
-                            <div class="buttons-container">
-                                <button type="button"><i class="fa-solid fa-pen-to-square"></i></button>
-                                
-                                <button type="button"><i class="fa-solid fa-trash"></i></button>
-                            </div> */}
+    const errorContainer = document.querySelector(".error-container")
+    const paragraphError = errorContainer.querySelector("p")
+    const closeBtn = errorContainer.querySelector("button")
+
+    errorContainer.classList.add("visible-display")
+    paragraphError.textContent = error
+
+    closeBtn.focus()
+
+    function removeErrorMsg () {
+        errorContainer.classList.remove("visible-display")
+        inputFocus()
+        console.log("elemento removido")
+        closeBtn.removeEventListener("click", removeErrorMsg)
+        closeBtn.removeEventListener("keypress", removeErrorKey)
+    }
+
+    function removeErrorKey(e) {
+        if(e.key === "Escape"){
+            removeErrorMsg()
+        }
+    }
+
+    closeBtn.addEventListener("click", removeErrorMsg)
+    closeBtn.addEventListener("keyup", removeErrorKey)
+         
+}
 
 function createNewItem(inputText){
 
@@ -100,21 +116,21 @@ const checkInput = input => {
     }
 }
 
-function process(check, create) {
+function process(check, create, displayError) {
 
     try {
         check(addInput);
         create(addInput.value);
         addInput.value = "";
-        addInput.focus();
+        inputFocus()
     } catch (error) {
-        console.log(error.message)
+        displayError(error.message)
     }
 }
 
 form.addEventListener("submit", (e) => {
     e.preventDefault()
-    process(checkInput, createNewItem)
+    process(checkInput, createNewItem, displayErrorMsg)
 
 })
 
