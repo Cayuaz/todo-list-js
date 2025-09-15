@@ -11,10 +11,12 @@ html {
 :root {
     --primary-color: #a8d5e2;
     --secondary-color: #e1f0f6;
+    --text-color: #212529;
     --accent-color: #ffd449;
     --danger-color: #e96565;
     --width-main-container: 90%;
-    --shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    --white: #FFFFFF;
+    --shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 @font-face {
@@ -28,7 +30,7 @@ body {
     font-family: 'Poppins', sans-serif;
     height: 100vh;
     display: flex;
-    background-color: #fff;
+    background-color: var(--white);
     display: flex;
 }
 
@@ -50,6 +52,7 @@ i, button {
 }
 
 .main-container {
+    width: 100%;
     width: var(--width-main-container);
     height: 45vh;
     margin-block-start: 7rem;
@@ -62,7 +65,7 @@ i, button {
     grid-template-columns: repeat(1, 1fr);
     justify-content: center;
     justify-items: center;   
-    color: #000;
+    /* color: #000; */
     position: relative;
 }
 
@@ -104,12 +107,12 @@ i, button {
     padding-inline: clamp(1.5rem, 1vw + 1.5rem, 2.5rem);
     padding-block: clamp(1.2rem, 1vw + 0.5rem, 1.5rem);
     box-shadow: var(--shadow);
-    background-color: var(--secondary-color);
+    background-color: var(--white);
 }
 
 .add-btn {
     background-color: var(--accent-color);
-    color: #000;
+    color: var(--text-color);
     padding-inline: clamp(2.5rem, 2vw + 0.5rem, 2.5rem);
     padding-block: clamp(0.4rem, 0.4vw + 0.5rem, 0.8rem);
     border-radius: 0.2rem;
@@ -131,9 +134,11 @@ li {
     align-items: center;
     padding-inline: clamp(1rem, 1vw + 0.5rem, 1.5rem);
     padding-block: clamp(1rem, 1vw + 0.5rem, 1.6rem);
-    background-color: #f5f5f5;
+    background-color: #F8F9FA;
     border-radius: 0.5rem;
     box-shadow: var(--shadow);
+    position: relative;
+    color: var(--text-color);
 }
 
 .container-check-btn, .buttons-container {
@@ -142,12 +147,16 @@ li {
     gap: clamp(1.4rem, 1.2vw + 0.2rem, 1.4rem);
 }
 
-.fa-check {
+/* .fa-check {
     visibility: hidden;
-}
+} */
 
 .visible {
     visibility: visible;
+}
+
+.invisible {
+    visibility: hidden;
 }
 
 .check-btn  {
@@ -156,39 +165,43 @@ li {
 
 h1 {
     align-self: flex-start;
+    color: #212529;
 }
 
 .edit-container {
+    width: 95%;
     position: absolute;
     top: 20%;
-    background-color: #b8bedd;
+    background-color: #E6E6FA;
     padding-inline: clamp(1rem, 1vw + 0.5rem, 1.5rem);
-    padding-block: clamp(1rem, 1vw + 0.5rem, 1.6rem);
-    border-radius: 0.2rem;
-    display: flex;
+    padding-block: clamp(1rem, 0.5vw + 0.5rem, 1.4rem);
+    border-radius: 0.4rem;
+    display: none;
     justify-content: space-around;
     gap: clamp(1.2rem, 1.2vw + 0.2rem, 1.4rem);
     box-shadow: var(--shadow);
+    color: var(--text-color);
 }
 
 .edit-container input {
     width: 60%;
-    border: 2px solid var(--secondary-color);
+    border: 2px solid #212529b9;
+    border-radius: 0.4rem;
     background-color: transparent;
     padding-inline: clamp(1rem, 1vw + 0.5rem, 1.5rem);
+    flex-grow: 1;
 }
 
 .edit-container button {
-    color: #000;
+    color: var(--text-color);
     padding-inline: clamp(1.2rem, 0.8vw + 0.8rem, 1.8rem);
-    padding-block: clamp(0.6rem, 0.4vw + 0.2rem, 0.8rem);
+    padding-block: clamp(0.4rem, 0.4vw + 0.2rem, 0.7rem);
     border-radius: 0.2rem;
-    flex-grow: 1;
 }
 
 
 .edit-btn {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
 }
 
 .cancel-btn {
@@ -198,7 +211,7 @@ h1 {
 .error-container {
     width: 90%;
     background-color: var(--danger-color);
-    color: #000;
+    color: var(--text-color);
     font-size: clamp(1.2rem, 1vw + 0.5rem, 1.5rem);
     padding-block: 1.8rem;
     padding-inline: 1.5rem;
@@ -225,10 +238,47 @@ h1 {
     display: flex;
 }
 
-.list button:focus, .error-container button:focus {
+.error-container button:focus {
     outline: 2px solid #000;
     padding-inline: 2px;
     padding-block: 2px;
+}
+
+
+/* Hover Effects */
+
+button, i {
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.fa-pen-to-square:hover, .fa-trash:hover, .fa-check:hover, .error-container button:hover {
+    transform: scale(1.1);
+}
+
+.edit-btn:hover {
+    background-color: #7ec8d6;
+}
+
+.cancel-btn:hover {
+    background-color: #e95757;
+}
+
+.add-btn:hover {
+    background-color: #ffe066;
+}
+
+.fa-pen-to-square:hover {
+    color: #7ec8d6;
+}
+
+.fa-trash:hover {
+    color: var(--danger-color);
+}
+
+.container-check-btn button:hover {
+    color: #7ec8d6;
+    outline: 2px solid #7ec8d6;
 }
 
 /* Typography */
@@ -238,7 +288,7 @@ h1 {
 }
 
 .add-btn, ul p {
-    font-size: clamp(1.3rem, 0.8vw + 0.2rem, 1.8rem);
+    font-size: clamp(1.4rem, 0.8vw + 0.2rem, 1.8rem);
 }
 
 .fa-pen-to-square, .fa-trash {
