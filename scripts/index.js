@@ -4,18 +4,25 @@ const list = document.getElementById("list")
 const addBtn = document.getElementById("add-btn")
 let listsItem = list.getElementsByTagName("li")
 
-//Array quue recebe os objetos que representam cada tarefa a partir do localStorage
-//Esse array também pode receber objetos da função addTask
+//Variável que recebe o array armazenado no localStorage sempre que a página é carregada
 const arrTasks = receiveLocalStorage()
 
-//Função que retorna o array armazenado no localStorage
+//Busca e valida os itens do localStorage.
 function receiveLocalStorage(){
 
     let arrLocalStorage = localStorage.getItem("items")
-    arrLocalStorage = JSON.parse(arrLocalStorage)
-        
-    //se arrLocalStorage for false, no caso nulo ou 
-    return arrLocalStorage && arrLocalStorage.length ? arrLocalStorage : []
+
+    if(!arrLocalStorage) return []
+
+    try {
+        arrLocalStorage = JSON.parse(arrLocalStorage)
+        //Se o dado armazenado for um array com pelo menos um item, retorna o array
+        //Se não retorna um array vazio
+        return Array.isArray(arrLocalStorage) && arrLocalStorage.length ? arrLocalStorage : []
+    } catch (error) {
+        //Caso aconteça alguma coisa com o dado armazenado, também retorna um array vazio
+        return []
+    } 
 
 }
 
@@ -63,7 +70,7 @@ function createNewItemObj(obj){
     //Variável com a li que vai conter o novo item da lista
     const listItem = document.createElement("li");
 
-    //Container com o botão de check
+    //Bloco de criação do botão de check e seu contêiner
     const checkContainer = document.createElement("div");
 
     checkContainer.classList.add("container-check-btn");
@@ -78,6 +85,7 @@ function createNewItemObj(obj){
     //Ícone de check
     const checkIcon = document.createElement("i");
 
+    //Se completed for true, já renderiza o ícone de check na tela, se não o esconde
     checkIcon.classList.add('fa-solid', 'fa-check', 'fa-sm', `${obj.completed ? "visible" : "invisible"}`);
 
 
@@ -85,7 +93,7 @@ function createNewItemObj(obj){
     checkContainer.appendChild(checkBtn);
 
 
-    //Parágrafo com o nome do item
+    //Bloco do parágrafo que vai conter o nome da tarefa
     const itemName = document.createElement("p");
 
     itemName.textContent = obj.itemName;
@@ -95,55 +103,54 @@ function createNewItemObj(obj){
 
     //Container com os botões de editar e excluir 
 
-    //Container com os botões de editar e deletar
+    //Bloco de criação do botões de editar e excluir, e seu contêiner
     const buttonsContainer = document.createElement("div");
 
     buttonsContainer.classList.add("buttons-container");
-
-    //Botão de editar
     const editBtn =  document.createElement("button");
     //Atributo data edit
     editBtn.setAttribute("data-action", "edit");
     
-    //Ícone de editar
     const editIcon = document.createElement("i") ;
 
     editIcon.classList.add('fa-solid', 'fa-pen-to-square');
     editBtn.appendChild(editIcon);
 
-    //Botão de excluir
     const deleteBtn =  document.createElement("button");
     //Atributo data delete
     deleteBtn.setAttribute("data-action", "delete");
 
-    //Ícone de deletar
     const deleteIcon = document.createElement("i");
 
     deleteIcon.classList.add('fa-solid', 'fa-trash');
     deleteBtn.appendChild(deleteIcon);
 
-    //Adiciona os botões de editar e excluir ao container
     buttonsContainer.appendChild(editBtn);
     buttonsContainer.appendChild(deleteBtn);
 
 
-    //Container de edição
+    //Bloco de criação do container de edição 
     const editContainer = document.createElement("div");
     editContainer.classList.add("edit-container");
 
     const editInput = document.createElement("input");
     editInput.setAttribute("type", "text");
+    editInput.setAttribute("name", "edit");
     editInput.classList.add("edit-input");
+
+    //O editInput começa sempre com o nome da tarefa atual
     editInput.value = obj.itemName
 
     const btnConfirmEdit = document.createElement("button");
     btnConfirmEdit.classList.add("edit-btn");
+
     //Atributo data confirmEdit
     btnConfirmEdit.setAttribute("data-action", "confirmEdit");
     btnConfirmEdit.textContent = "Edit";
 
     const btnCancel = document.createElement("button");
     btnCancel.classList.add("cancel-btn");
+
     //Atributo data cancel
     btnCancel.setAttribute("data-action", "cancel");
     btnCancel.textContent = "Cancel"
@@ -153,13 +160,10 @@ function createNewItemObj(obj){
     editContainer.appendChild(btnCancel);
 
 
-    //Adiciona o container de check, o parágrafo com o nome do item e o container com os botões à li
+    //Adiciona o container de check, o parágrafo com o nome do item e o container com os botões, à li
     listItem.appendChild(checkContainer);
     listItem.appendChild(buttonsContainer);
     listItem.appendChild(editContainer);
-
-    //Adiciona a nova li à lista
-    // list.appendChild(listItem)
 
     return listItem
 
@@ -218,46 +222,27 @@ form.addEventListener("submit", (e) => {
 
 })
 
-function getIndex(arr, element){
-   arr = Array.from(arr)
-   return arr.indexOf(element)
-}
+//Função que executa uma determinada ação para cada botão
+function clickListItems(listItem, dataAction, editContainer, inputEdit, index){
 
-function clickListItems(e){
-
-    // console.log(e.target)
-    const clickedElement = e.target.closest("button");
-    if(!clickedElement) return
-    const dataAction = clickedElement.getAttribute("data-action");
-
-    const listItem = clickedElement.closest("li")
-    
-    const editContainer = listItem.querySelector(".edit-container");
-    console.log(editContainer);
-
-    const inputEdit = editContainer.querySelector("input")
-
-    const index = getIndex(listsItem, listItem)
-    console.log(index);
-
+        //Objeto com as funções de cada botão
         const datas = {
 
+            //Inverte o status 'completed' da tarefa no array de dados
             check: function(){
-                console.log("check");
-                const checkIconClick = listItem.querySelector(".fa-check")
+                
                 arrTasks[index].completed = !arrTasks[index].completed
 
-                if(arrTasks[index].completed){
-                    checkIconClick.classList.add("visible")
-                } else {
-                    checkIconClick.classList.remove("visible")
-                }
 
+                //Salva o novo estado no localStorage e renderiza a lista novamente para refletir a mudança
                 sendLocalStorage()
                 displayNewItem(createNewItemObj)
                 
             },
 
+            //Função do botão que exibe o container de edição
+            //Antes de tudo a função remove a classe que exibe os containers, de todos eles, para todos se fecharem quando um for aberto
+            //Depois adiciona a classe que exibe o container, ao editContainer do elemento clicado
             edit: function(){
 
                 console.log("edit");
@@ -269,13 +254,22 @@ function clickListItems(e){
                 editContainer.classList.add("visible-display")
             },
 
+            //Função de deletar tarefa
+            //Remove do arrTasks a li que contém o elemento que foi clicado
+            //A lista é construída a partir de arrTasks então ambos funcionam com os mesmos índices
             delete: function(){
                 console.log("delete")
                 arrTasks.splice(index, 1)
+
+                //Salva o novo estado no localStorage e renderiza a lista novamente para refletir a mudança
                 displayNewItem(createNewItemObj)
                 sendLocalStorage()
             },
 
+            //Função de editar o nome da tarefa
+            //Primeiro verifica se há algo digitado no input
+            //Caso tenha algo digitado modifica o objeto com o nome da tarefa no arrTasks 
+            //Depois atualiza a lista para imprimi-la na tela novamente
             confirmEdit: function(){
 
                 console.log("confirmEdit")
@@ -288,10 +282,14 @@ function clickListItems(e){
                     return
                 }
                 arrTasks[index].itemName = inputEdit.value
+
+                //Salva o novo estado no localStorage e renderiza a lista novamente para refletir a mudança
                 sendLocalStorage()
                 displayNewItem(createNewItemObj)
             },
 
+            //Função de cancelar edição
+            //Remove do editContainer a classe que o exibe e atualiza o editInput 
             cancel: function(){
                 console.log("cancel")
                 editContainer.classList.remove("visible-display")
@@ -300,10 +298,52 @@ function clickListItems(e){
 
         }
 
+        //Executa a função do objeto datas a partir do parâmetro (data action) recebido
         datas[dataAction]();
 }
 
-list.addEventListener("click", clickListItems);
+//Função que pega os índices das lis
+function getIndex(arr, element){
+    //Transforma o primeiro parâmetro em um array
+   arr = Array.from(arr)
+   //Retorna o índice do elemento dentro desse array
+   return arr.indexOf(element)
+}
+
+function processClickItems(e) {
+    
+    //Variável com o botão mais próximo do elemento clicado
+    const clickedElement = e.target.closest("button");
+
+    //Se não existir um botão, já faz return
+    if(!clickedElement) return
+
+    //Variável com o atributo desse botão
+    const dataAction = clickedElement.getAttribute("data-action");
+
+    //Variável com a li do botão clicado
+    const listItem = clickedElement.closest("li")
+
+    //Variável com o editContainer do botão clicado
+    const editContainer = listItem.querySelector(".edit-container");
+    console.log(editContainer);
+
+    //Variável com o input do botõa clicado
+    const inputEdit = editContainer.querySelector("input")
+
+    //Variável com o índice da li 
+    //Chama a função getIndex e passa a lista de lis e a li da vez como argumentos
+    const index = getIndex(listsItem, listItem)
+
+    console.log(index);
+
+    //Chama checkListItems com as variáveis criadas acima
+    clickListItems(listItem, dataAction, editContainer, inputEdit, index)
+
+}
+
+//Evento de clique que dispara sempre que a lista é clicada
+list.addEventListener("click", processClickItems);
 
 displayNewItem(createNewItemObj);
 
