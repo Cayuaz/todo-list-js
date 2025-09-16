@@ -4,6 +4,25 @@ const list = document.getElementById("list")
 const addBtn = document.getElementById("add-btn")
 let listsItem = list.getElementsByTagName("li")
 
+//Array quue recebe os objetos que representam cada tarefa a partir do localStorage
+//Esse array também pode receber objetos da função addTask
+const arrTasks = receiveLocalStorage()
+
+//Função que retorna o array armazenado no localStorage
+function receiveLocalStorage(){
+
+    let arrLocalStorage = localStorage.getItem("items")
+    arrLocalStorage = JSON.parse(arrLocalStorage)
+        
+    //se arrLocalStorage for false, no caso nulo ou 
+    return arrLocalStorage && arrLocalStorage.length ? arrLocalStorage : []
+
+}
+
+//Função que armazena o array no localStorage
+function sendLocalStorage(){
+    localStorage.setItem("items", JSON.stringify(arrTasks))
+}
 
 //Função de focus no input
 const inputFocus = () => addInput.focus();
@@ -37,15 +56,6 @@ function displayErrorMsg(error) {
     closeBtn.addEventListener("keyup", removeErrorKey);
          
 }
-
-//Array com os objetos que representam cada tarefa
-const arrTasks = [
-    {
-        itemName: "Ir à academia",
-        createDate: Date.now(),
-        completed: false
-    }
-]
 
 //Função que retorna uma nova li com uma nova tarefa 
 function createNewItemObj(obj){
@@ -160,9 +170,11 @@ function displayNewItem(create) {
 
     //Limpa antes para não exibir tarefas repetidas, já que percorre todos os objetos do array de tarefas
     list.innerHTML = "";
-    arrTasks.forEach((task) => {
+    if(arrTasks.length){
+        arrTasks.forEach((task) => {
         list.appendChild(create(task));
-    })
+        })
+    }
 }
 
 //Adiciona uma nova tarefa/objeto ao array de tarefas
@@ -172,6 +184,8 @@ function addTask(taskName) {
         createDate: Date.now(),
         completed: false
     })
+
+    sendLocalStorage()
 }
 
 //Função que faz a verifica se o input não está vazio
@@ -239,7 +253,9 @@ function clickListItems(e){
                     checkIconClick.classList.remove("visible")
                 }
 
+                sendLocalStorage()
                 displayNewItem(createNewItemObj)
+                
             },
 
             edit: function(){
@@ -256,8 +272,8 @@ function clickListItems(e){
             delete: function(){
                 console.log("delete")
                 arrTasks.splice(index, 1)
-                // listItem.remove()
                 displayNewItem(createNewItemObj)
+                sendLocalStorage()
             },
 
             confirmEdit: function(){
@@ -272,6 +288,7 @@ function clickListItems(e){
                     return
                 }
                 arrTasks[index].itemName = inputEdit.value
+                sendLocalStorage()
                 displayNewItem(createNewItemObj)
             },
 
