@@ -32,13 +32,14 @@ body {
     display: flex;
     background-color: var(--white);
     display: flex;
+    flex-direction: column;
 }
 
 main {
     max-width: 720px;
     width: 100%;
     margin: 0 auto;
-    padding-inline: 2rem;
+    padding-inline: 1rem;
 }
 
 button {
@@ -54,8 +55,8 @@ i, button {
 .main-container {
     width: 100%;
     width: var(--width-main-container);
-    height: 45vh;
-    margin-block-start: 7rem;
+    /* height: 45vh; */
+    margin-block: 7rem;
     margin-inline: auto;
     display: grid;
     grid-template-areas: 
@@ -65,7 +66,6 @@ i, button {
     grid-template-columns: repeat(1, 1fr);
     justify-content: center;
     justify-items: center;   
-    /* color: #000; */
     position: relative;
 }
 
@@ -256,6 +256,11 @@ button, i {
     transform: scale(1.1);
 }
 
+.buttons-container button {
+    padding-inline: 0.2rem;
+    padding-block: 0.2rem;
+}
+
 .edit-btn:hover {
     background-color: #7ec8d6;
 }
@@ -312,7 +317,7 @@ h1 {
     }
 
     .main-container {
-        margin-block-start: 6rem;
+        margin-block: 6rem;
     }
    
 }
