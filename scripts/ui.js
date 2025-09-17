@@ -1,4 +1,4 @@
-const addInput = document.getElementById("add-input")
+const addInput = document.getElementById("add-input");
 
 //Função de focus 
 const inputFocus = (input) => input.focus();
@@ -34,7 +34,7 @@ function displayErrorMsg(error) {
 }
 
 //Função que retorna uma nova li com uma nova tarefa 
-function createNewItemObj(obj){
+function createNewItemObj(obj) {
 
     //Variável com a li que vai conter o novo item da lista
     const listItem = document.createElement("li");
@@ -142,7 +142,7 @@ function createNewItemObj(obj){
 function render(tasks, list) {
 
     if(!tasks){
-        return
+        return;
     }
 
     //Limpa antes para não exibir tarefas repetidas, já que percorre todos os objetos do array de tarefas
@@ -155,27 +155,6 @@ function render(tasks, list) {
 
 export {render, displayErrorMsg, inputFocus};
 
-// //Função que faz a verifica se o input não está vazio
-// const checkInput = input => {
-//     if(input.value){
-//         return true;
-//     } else {
-//         throw new Error("O campo do formulário não pode estar vazio");
-//     }
-// }
 
-// //Função com a lógica principal, que executa todas as outras funções
-// function process() {
-
-//     try {
-//         checkInput(addInput);
-//         addTask(addInput.value);
-//         displayNewItem(createNewItemObj);
-//         addInput.value = "";
-//         inputFocus();
-//     } catch (error) {
-//         displayErrorMsg(error.message);
-//     }
-// }
 
 

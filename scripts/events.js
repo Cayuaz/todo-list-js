@@ -1,5 +1,5 @@
-import {getTasks, completedTask, removeTask, updateNameTask, addTask} from "./state.js"
-import {render, displayErrorMsg, inputFocus} from "./ui.js"
+import {getTasks, completedTask, removeTask, updateNameTask, addTask} from "./state.js";
+import {render, displayErrorMsg, inputFocus} from "./ui.js";
 
 const form = document.getElementById("form")
 const addInput = document.getElementById("add-input")

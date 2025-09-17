@@ -55,7 +55,6 @@ i, button {
 .main-container {
     width: 100%;
     width: var(--width-main-container);
-    /* height: 45vh; */
     margin-block: 7rem;
     margin-inline: auto;
     display: grid;

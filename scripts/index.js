@@ -1,9 +1,9 @@
-import {setEventsListeners, list} from "./events.js"
-import {render} from "./ui.js"
-import {getTasks} from "./state.js"
+import {setEventsListeners, list} from "./events.js";
+import {render} from "./ui.js";
+import {getTasks} from "./state.js";
 
-render(getTasks(), list)
+render(getTasks(), list);
 
-setEventsListeners()
+setEventsListeners();
 
                         
