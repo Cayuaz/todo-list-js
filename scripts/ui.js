@@ -19,7 +19,7 @@ function displayErrorMsg(error) {
         errorContainer.classList.remove("visible-display");
         inputFocus(addInput)
         closeBtn.removeEventListener("click", removeErrorMsg);
-        closeBtn.removeEventListener("keypress", removeErrorKey);
+        closeBtn.removeEventListener("keyup", removeErrorKey);
     }
 
     function removeErrorKey(e) {
@@ -38,6 +38,7 @@ function createNewItemObj(obj) {
 
     //Variável com a li que vai conter o novo item da lista
     const listItem = document.createElement("li");
+    listItem.setAttribute("data-id", obj.id)
 
     //Bloco de criação do botão de check e seu contêiner
     const checkContainer = document.createElement("div");
@@ -65,7 +66,7 @@ function createNewItemObj(obj) {
     //Bloco do parágrafo que vai conter o nome da tarefa
     const itemName = document.createElement("p");
 
-    itemName.textContent = obj.itemName;
+    itemName.textContent = obj.taskName;
 
     //Adiciona o parágrafo ao check container
     checkContainer.appendChild(itemName);
@@ -108,7 +109,7 @@ function createNewItemObj(obj) {
     editInput.classList.add("edit-input");
 
     //O editInput começa sempre com o nome da tarefa atual
-    editInput.value = obj.itemName
+    editInput.value = obj.taskName;
 
     const btnConfirmEdit = document.createElement("button");
     btnConfirmEdit.classList.add("edit-btn");
