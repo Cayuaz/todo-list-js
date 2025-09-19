@@ -5,9 +5,7 @@ const form = document.getElementById("form")
 const addInput = document.getElementById("add-input")
 const list = document.getElementById("list")
 
-console.log(getTasks())
-
-//Função que controla os eventos de adicionar tarefa e dos botões de check, edit, delete e cancel
+//Função que controla os eventos de adicionar tarefa e os dos botões de check, edit, delete e cancel
 function setEventsListeners() {
 
     //Evento do formulário
@@ -31,21 +29,19 @@ function setEventsListeners() {
 
         //Variável com o botão mais próximo do elemento clicado
         const btnDataAction = e.target.closest("button");
+
         //Se não extistir um botão, já retorna e não executa o código restante
         if(!btnDataAction) return;
 
         //Elementos relacionados a li do elemento clicado
         const dataAction = btnDataAction.getAttribute("data-action");
         const listItem = btnDataAction.closest("li");
-        const dataId = listItem.getAttribute("data-id")
-        console.log(dataId)
+        const dataId = parseInt(listItem.getAttribute("data-id"))
         const editContainer = listItem.querySelector(".edit-container");
         const editInput = editContainer.querySelector(".edit-input");
 
-        // //Variável com o índice da li 
-        // const index = Array.from(listItems).indexOf(listItem);
 
-        //Executa uma função com base no valor do atributo data-action de btnDataAction
+        //Executa uma ação ou chama a função actionManager com base no valor do atributo data-action de btnDataAction
         switch(dataAction){
             case "check": 
                 actionManager(dataId, dataAction)
@@ -72,9 +68,10 @@ function setEventsListeners() {
 
 
             case "cancel": 
-                // const tasksClone = getTasks()
+                const tasksClone = getTasks()        
+                const task = tasksClone.find(task => task.id === dataId);
                 editContainer.classList.remove("visible-display");
-                // editInput.value = tasksClone[index].itemName;
+                editInput.value = task.taskName
                 break;
 
             default: 
