@@ -13,7 +13,7 @@ class Task {
     }
 
     //Método de alterar o nome da tarefa
-    updatedName(newName){
+    set updatedName(newName){
         if(newName){
             this.taskName = newName;
             this.updatedAt = Date.now();
@@ -116,7 +116,7 @@ function actionManager(id, action, newTaskName){
             break;
                 
         case "confirmEdit":
-            task.updatedName(newTaskName);
+            task.updatedName = newTaskName;
             sendLocalStorage();
             break;
         default:
