@@ -48,3 +48,7 @@ O principal objetivo deste projeto foi aprimorar e treinar habilidades de desenv
 ## Versão Online
 
 [https://my-done-list.netlify.app](https://my-done-list.netlify.app)
+
+## Licença
+
+Este projeto está sob a licença MIT. Para mais detalhes, consulte o arquivo [LICENSE](LICENSE).
