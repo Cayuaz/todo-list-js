@@ -208,6 +208,7 @@ h1 {
 }
 
 .error-container {
+    display: none;
     width: 90%;
     background-color: var(--danger-color);
     color: var(--text-color);
@@ -220,7 +221,6 @@ h1 {
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    display: flex;
     justify-content: space-between;
     gap: clamp(0.5rem, 0.5vw + 0.2rem, 1rem);
 }
